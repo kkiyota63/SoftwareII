@@ -3,16 +3,37 @@
 <head>
   <meta charset="utf-8">
   <title>2023_11_20</title>
-  <script src="my.js"></script>
   <link rel="stylesheet" href="my.css">
 </head>
 <body>
   <h1>課題2</h1>
   <span id="icon" style="position: absolute; visibility: hidden;">
     <img src="http://www.kagoshima-u.ac.jp/about/emblem.gif">
-    </span>
+  </span>
 
   <script>
+    let t = 0;
+    let timerid;
+
+    function animate(icon) {
+      t += 0.05;
+
+      let x = 16 * Math.pow(Math.sin(t), 3);
+      let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+
+      // 座標の調整（原点を中心に移動し、スケーリング）
+      x = x * 10 + 500;
+      y = -y * 10 + 250;
+
+      icon.style.visibility = 'hidden';
+      icon.style.top = y + 'px';
+      icon.style.left = x + 'px';
+      icon.style.visibility = 'visible';
+
+      // アニメーションを続ける
+      timerid = setTimeout(function() { animate(icon); }, 20);
+    }
+
     window.onload = function() {
       var icon = document.getElementById('icon');
       animate(icon);
