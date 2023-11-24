@@ -3,7 +3,7 @@ $(function(){
 
   //ボタン001が押された時
   var bt_001_clicked = function(ev){
-    var h1_001 = $("h1_001");
+    var h1_001 = $("#h1_001");
     var p_001 = $("#p_001");
     var p_002 = $("#p_002");1
     var p_003 = $("#p_003");
