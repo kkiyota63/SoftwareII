@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>CANVAS</title>
+  <meta charset="UTF-8">
+  <style>body { font-family: Meiryo; }</style>
+  <script>
+    function draw() {
+      var now = new Date();
+      var hour = now.getHours();
+      var minute = now.getMinutes();
+      var second = now.getSeconds();
+
+      var mycanvas = document.getElementById('mycanvas');
+      var ctx = mycanvas.getContext('2d');
+      
+      ctx.clearRect(0, 0, 300, 300);
+
+      // 背景
+      ctx.fillStyle = "#f0f0f0";
+      ctx.fillRect(0, 0, 300, 300);
+
+      // 時計の枠
+      ctx.beginPath();
+      ctx.arc(150, 150, 110, 0, Math.PI * 2);
+      ctx.strokeStyle = "#000080"; // 濃い青色
+      ctx.lineWidth = 10;
+      ctx.stroke();
+
+      // 数字
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#000000";
+      for(var n = 1; n <= 12; n++){
+        var angle = n * Math.PI / 6;
+        ctx.fillText(n, 150 + 90 * Math.sin(angle) - 10, 150 - 90 * Math.cos(angle) + 10);
+      }
+
+      var ns = hour * 60 * 60 + minute * 60 + second;
+
+      // 時針
+      ctx.beginPath();
+      ctx.moveTo(150, 150);
+      ctx.lineTo(150 + 50 * Math.sin(ns / 120 * 2 * Math.PI / 360), 150 - 50 * Math.cos(ns / 120 * 2 * Math.PI / 360));
+      ctx.lineWidth = 15;
+      ctx.strokeStyle = "#000088"; // 濃い青色
+      ctx.stroke();
+
+      // 分針
+      ctx.beginPath();
+      ctx.moveTo(150, 150);
+      ctx.lineTo(150 + 75 * Math.sin(ns / 10 * 2 * Math.PI / 360), 150 - 75 * Math.cos(ns / 10 * 2 * Math.PI / 360));
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#008800"; // 緑色
+      ctx.stroke();
+
+      // 秒針
+      ctx.beginPath();
+      ctx.moveTo(150, 150);
+      ctx.lineTo(150 + 100 * Math.sin(second * 6 * 2 * Math.PI / 360), 150 - 100 * Math.cos(second * 6 * 2 * Math.PI / 360));
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ff0000"; // 赤色
+      ctx.stroke();
+
+      // 中心の点
+      ctx.beginPath();
+      ctx.arc(150, 150, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#000000";
+      ctx.fill();
+    }
+
+    setInterval(draw, 1000);
+  </script>
+  <h1>JavaScriptで時計を描画</h1>
+</head>
+<body>
+  <canvas id="mycanvas" style="background-color:#ffffee;" width="300" height="300"></canvas>
+</body>
+</html>
